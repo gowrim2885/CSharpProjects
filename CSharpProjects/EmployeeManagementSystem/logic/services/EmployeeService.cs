@@ -1,8 +1,6 @@
 ﻿using EmployeeManagementSystem.Data;
 using EmployeeManagementSystem.logic.models;
 
-
-
 namespace EmployeeManagementSystem.logic.services
 {
     public class EmployeeService
