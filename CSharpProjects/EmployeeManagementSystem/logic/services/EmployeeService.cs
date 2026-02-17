@@ -7,11 +7,12 @@ namespace EmployeeManagementSystem.logic.services
     {
         EmployeeData data = new EmployeeData();
         List<EmployeeModel> Employees = new List<EmployeeModel>();
-        public void AddNewEmployee(string strName, string strDepartment, string strEmail, decimal dSalary, int nAge, string strLocation)
+        public void AddNewEmployee(int nEmpId, string strName, string strDepartment, string strEmail, decimal dSalary, int nAge, string strLocation)
         {
 
             data.AddEmployee(new EmployeeModel
             {
+                id = nEmpId,
                 name = strName,
                 department = strDepartment,
                 email = strEmail,
@@ -27,12 +28,12 @@ namespace EmployeeManagementSystem.logic.services
             return data.GetAllEmployees();
         }
 
-        public bool DeleteEmployee(string strName)
+        public bool DeleteEmployee(int nEmpId)
         {
             bool IsDelete = false;
 
             List<EmployeeModel> employees = DisplayAllEmployees();
-            var employeeToDelete = employees.Find(emp => emp.name == strName);
+            var employeeToDelete = employees.Find(emp => emp.id == nEmpId);
 
             if (employeeToDelete != null)
             {
@@ -48,13 +49,14 @@ namespace EmployeeManagementSystem.logic.services
             }
         }
 
-        public bool UpdateEmployeeInformation(string strName, string strDepartment, string strEmail, int nSalary, int nAge, string strLocation)
+        public bool UpdateEmployeeInformation(int nEmpId, string strName, string strDepartment, string strEmail, int nSalary, int nAge, string strLocation)
         {
             bool IsUpdate = false;
             List<EmployeeModel> employees = DisplayAllEmployees();
-            var employeeToUpdate = employees.Find(emp => emp.name == strName);
+            var employeeToUpdate = employees.Find(emp => emp.id == nEmpId);
             if (employeeToUpdate != null)
             {
+                employeeToUpdate.name = strName;
                 employeeToUpdate.department = strDepartment;
                 employeeToUpdate.email = strEmail;
                 employeeToUpdate.salary = nSalary;
