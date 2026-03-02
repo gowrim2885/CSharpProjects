@@ -11,6 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBConnection", "DBConnectio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labs", "Labs\Labs.csproj", "{DBC63A66-A000-4D05-94D9-8E39DAA7506C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ADO.net", "ADO.net", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StudentManagementConsoleApp", "StudentManagementConsoleApp", "{53E360BF-982E-4015-921C-43C8F7E0A421}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentManagementSystem", "StudentManagement\StudentManagementSystem.csproj", "{DA4BB43F-AEC8-4A0F-AB68-0A0F8B082CB2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,9 +39,17 @@ Global
 		{DBC63A66-A000-4D05-94D9-8E39DAA7506C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBC63A66-A000-4D05-94D9-8E39DAA7506C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBC63A66-A000-4D05-94D9-8E39DAA7506C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA4BB43F-AEC8-4A0F-AB68-0A0F8B082CB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA4BB43F-AEC8-4A0F-AB68-0A0F8B082CB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA4BB43F-AEC8-4A0F-AB68-0A0F8B082CB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA4BB43F-AEC8-4A0F-AB68-0A0F8B082CB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{53E360BF-982E-4015-921C-43C8F7E0A421} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{DA4BB43F-AEC8-4A0F-AB68-0A0F8B082CB2} = {53E360BF-982E-4015-921C-43C8F7E0A421}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EDCC1D5D-2422-4A1A-9912-3C092BD4FBFA}
