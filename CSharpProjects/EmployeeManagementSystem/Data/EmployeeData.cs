@@ -1,5 +1,7 @@
-﻿using EmployeeManagementSystem.logic.models;
+﻿using EmployeeManagementSystem.Log;
+using EmployeeManagementSystem.logic.models;
 using System.Collections.Generic;
+using System.Text.Json;
 
 
 namespace EmployeeManagementSystem.Data
@@ -15,6 +17,14 @@ namespace EmployeeManagementSystem.Data
             Employees.Add(emp);
 
             storage.SaveToFile(Employees);
+            EmployeeHistoryStorage.SaveHistory(new EmployeeHistory
+            {
+                EmployeeId = emp.id,
+                Action = "ADD",
+                OldValue = null,
+                NewValue = JsonSerializer.Serialize(emp)
+            });
+
         }
         public List<EmployeeModel> GetAllEmployees()
         {

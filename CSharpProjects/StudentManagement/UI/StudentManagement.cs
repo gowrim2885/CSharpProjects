@@ -12,23 +12,47 @@ namespace StudentManagementSystem.UI
         StudentService service = new StudentService();
         public void Start()
         {
+            bool interest = true;
 
-            while(true)
+            while(interest)
             {
                 Console.WriteLine(" *** WELCOME TO STUDENT MANAGEMENT SYSTEM ***");
 
                 Console.WriteLine("Enter Which Operation are to be performed");
                 Console.WriteLine("1. Add Students");
                 Console.WriteLine("2. Display Students");
+                Console.WriteLine("3. Update Student Details");
+                Console.WriteLine("4.Delete Student Details");
 
-                int n = Convert.ToInt32(Console.Read());
+                int n = Convert.ToInt32(Console.ReadLine());
 
                 switch (n)
                 {
                     case 1:
-                        AddStudent();
+                        AddStudent(); //create
+                        break;
+                    case 2:
+                        ShowAllStudentDetail();//read
+                        break;
+                    case 3:
+                        UpdateStudent(); //Update
+                        break;
+                    case 4:
+                        DeleteStudent();
                         break;
                 }
+
+                Console.WriteLine("Do You want to continue(Y/N): ");
+                char input = Convert.ToChar(Console.ReadLine());
+                if(input == 'Y' || input == 'y')
+                {
+                    interest = true;
+                }
+                else
+                {
+                    interest = false;
+                }
+                
 
             }
 
@@ -36,20 +60,62 @@ namespace StudentManagementSystem.UI
 
         public void AddStudent()
         {
-            Console.Write("Enter Student ID :");
-            int nId = Convert.ToInt32(Console.ReadLine());
+            //Console.Write("Enter Student ID :");
+            //int nId = Convert.ToInt32(Console.ReadLine());
             Console.Write("Enter Student Name :");
             string? strName = Console.ReadLine();
             Console.Write("Enter Student Age :");
             int nAge = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Enter Student Email :");
+            Console.Write("Enter Student Email :");
             string? strEmail = Console.ReadLine();
-            Console.WriteLine("Enter Student Department :");
+            Console.Write("Enter Student Department :");
             string? strDepartment = Console.ReadLine();
 
-            service.AddNewStudent(nId, strName, nAge, strEmail, strDepartment);
+            service.AddNewStudent(strName, nAge, strEmail, strDepartment);
+
+            Console.WriteLine("Student ADDED Successfully");
+        }
+
+
+        public void ShowAllStudentDetail()
+        {
+            Console.WriteLine("All Students Detail");
+            service.DisplayAllStudents();
+        }
+    
+        public void UpdateStudent()
+        {
+            Console.WriteLine("Enter the name of the student to update :");
+            string strName = Console.ReadLine();
+
+            Console.WriteLine("Enter Which column you want to update (Name, Email, Department, Age) :");
+            string strColumnName = Console.ReadLine();
+
+            Console.WriteLine("Enter new data to update the old data");
+
+            if (strColumnName == "Name" || strColumnName == "Email" || strColumnName == "Department")
+            { 
+                string newdata = Console.ReadLine();
+                service.UpdateStudentInfo<string>(newdata, strColumnName, strName);
+            }
+            if (strColumnName == "Age")
+            {
+                int newdata = Convert.ToInt32(Console.ReadLine());
+                service.UpdateStudentInfo<int>(newdata, strColumnName, strName);
+            }
+
+            Console.WriteLine("Student UPDATED Successfully");
 
         }
 
+        public void DeleteStudent()
+        {
+            Console.WriteLine("Enter ID For delete the student :");
+            int nStudent_ID = int.Parse(Console.ReadLine());
+
+            service.DeleteStudent(nStudent_ID);
+
+            Console.WriteLine("Student DELETED Successfully");
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System.Data;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Configuration;
 namespace DBConnection
 {
     public partial class Form1 : Form
@@ -13,7 +14,8 @@ namespace DBConnection
 
         private void LoadData()
         {
-            string connctionString = "Data Source=.;Initial Catalog=EmployeeDatabase;User ID=sa;Password=Gowri@2212;";
+            //string connctionString = "Data Source=.;Initial Catalog=EmployeeDatabase;User ID=sa;Password=Gowri@2212;";
+            string connctionString = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
             try
             {
                 using (SqlConnection connection = new SqlConnection(connctionString))
@@ -38,7 +40,9 @@ namespace DBConnection
             LoadData();   
         }
 
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
-
+        }
     }
 }

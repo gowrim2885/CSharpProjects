@@ -1,1 +1,30 @@
-[{"id":1,"name":"Aarthi","department":"designer","email":"aarthi@gmail.com","salary":100000,"age":21,"location":"theni"},{"id":2,"name":"kala","department":"developent","email":"kala@gmail.com","salary":12000000,"age":20,"location":"madhurai"},{"id":3,"name":"Gowri","department":"testing","email":"gowri@gmail.com","salary":15000000,"age":20,"location":"chennai"},{"id":4,"name":"Abi","department":"Education","email":"abi@gmail.com","salary":2000000,"age":20,"location":"India"}]
+[
+  {
+    "id": 1,
+    "name": "Aarthi",
+    "department": "CSE",
+    "email": "gowri@gmail.com",
+    "salary": 100000,
+    "age": 21,
+    "location": "Theni"
+  },
+  {
+    "id": 2,
+    "name": "kala",
+    "department": "cse",
+    "email": "kala@gmail.com",
+    "salary": 5000000,
+    "age": 22,
+    "location": "madhurai"
+  },
+  {
+    "id": 14,
+    "name": "Gowri",
+    "department": "CSE",
+    "email": "gowri@gmail.com",
+    "salary": 120000000,
+    "age": 20,
+    "location": "Theni"
+  }
+
+]

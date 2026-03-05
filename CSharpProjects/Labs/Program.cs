@@ -15,6 +15,8 @@ using System;
 
 //Asysnchronous.Main();
 
-await SyncMethods.Main();
+//await SyncMethods.Main();
 
 //RefAndOut.RunMain();
+
+Wallet.Main();

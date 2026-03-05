@@ -1,4 +1,6 @@
-﻿using EmployeeManagementSystem.logic.services;
+﻿using System.Threading;
+
+using EmployeeManagementSystem.logic.services;
 using System;
 
 namespace EmployeeManagementSystem.UI
@@ -10,22 +12,17 @@ namespace EmployeeManagementSystem.UI
         {
             while (true)
             {
-                Console.WriteLine("\n **************************************************\n");
+                Console.Write("**************************************************\n");
                 Console.WriteLine("Select Which operation you want to Perform");
                 Console.WriteLine("1. Add Employee");
                 Console.WriteLine("2. Display All Employees");
                 Console.WriteLine("3. Delete Employee");
                 Console.WriteLine("4.Update Employee");
-                Console.WriteLine("4. Exit");
-                Console.WriteLine("\n **************************************************\n");
-
-
-                Console.Write("\n\nEnter Your Choice  :   ");
-                //try { 
-                    int n = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("5. Exit");
                 
-
-
+                Console.Write("\nEnter Your Choice  :   ");
+                int n = Convert.ToInt32(Console.ReadLine());
+                
                 switch (n)
                 {
                     case 1:
@@ -33,7 +30,7 @@ namespace EmployeeManagementSystem.UI
                         Console.WriteLine("***Employee Added Successfully*** \n ");
                         break;
                     case 2:
-                        Console.WriteLine("\n\n Display All Employees\n\n");
+                        Console.WriteLine("\nDisplay All Employees");
                         DisplayAllEmployees();
                         break;
                     case 3:
@@ -48,65 +45,71 @@ namespace EmployeeManagementSystem.UI
                     default:
                         Console.WriteLine("Select a Valid Option");
                         break;
-
                 }
-                //}
-                //catch (Exception e)
-                //{
-                //    Console.WriteLine("Enter Valid Input" + e);
-                //}
+              
             }
         }
-
         public void AddEmployee()
         {
+            try
+            {
+                Console.Write("Enter Employee Id : ");
+                int nEmpId = Convert.ToInt32(Console.ReadLine());
 
-            Console.Write("Enter Employee Id  ");
-            int nEmpId = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Enter Employee Name : ");
+                string? strName = Console.ReadLine();
 
-            Console.Write("Enter Employee Name  ");
-            string? strName = Console.ReadLine();
-
-            Console.Write("Enter employee Department   ");
-            string? strDepartment = Console.ReadLine();
+                Console.Write("Enter employee Department  : ");
+                string? strDepartment = Console.ReadLine();
 
 
-            Console.Write("Enter Employee Email  "); 
-            string? strEmail = Console.ReadLine();
+                Console.Write("Enter Employee Email : ");
+                string? strEmail = Console.ReadLine();
 
-            Console.Write("Enter Employee Salary  ");
-            int nSalary = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Enter Employee Salary : ");
+                int nSalary = Convert.ToInt32(Console.ReadLine());
 
-            Console.Write("Enter Employee Age  ");
-            int nAge = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Enter Employee Age : ");
+                int nAge = Convert.ToInt32(Console.ReadLine());
 
-            Console.Write("Enter Employee Location  ");
-            string? strLocation = Console.ReadLine();
+                Console.Write("Enter Employee Location : ");
+                string? strLocation = Console.ReadLine();
 
-            service.AddNewEmployee(nEmpId, strName, strDepartment, strEmail, nSalary, nAge, strLocation);
+                service.AddNewEmployee(nEmpId, strName, strDepartment, strEmail, nSalary, nAge, strLocation);
 
-            Console.WriteLine("\n\n" + $"Employee ID: {nEmpId}, \nEmployee Name: {strName}, Department: {strDepartment}, Email ID: {strEmail}, " +
-                $"Employee Salary: {nSalary},Employee Age: {nAge}, Employee Location: {strLocation}\n");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Enter the valid Input" + ex.Message);
+            }
 
+            //Console.Write("\n\n" + $"Employee ID: {nEmpId}, \nEmployee Name: {strName}, Department: {strDepartment}, Email ID: {strEmail}, " +
+            //    $"Employee Salary: {nSalary},Employee Age: {nAge}, Employee Location: {strLocation}\n");
         }
 
         public void DisplayAllEmployees()
         {
             var employees = service.DisplayAllEmployees();
+
             foreach (var emp in employees)
             {
-                Console.WriteLine($"Employee ID: {emp.id}Employee Name: {emp.name},\nEmployee Department: {emp.department}, \nMail Id:{emp.email}, \nEmployee Age: {emp.age}, " +
-                        $"\nEmployee Salary: {emp.salary},  \nEmployee Location: {emp.location}\n\n");
+                Console.WriteLine($"Employee ID: {emp.id}, Employee Name: {emp.name}, Employee Department: {emp.department}, Mail Id:{emp.email}, Employee Age: {emp.age}, " +
+                        $"Employee Salary: {emp.salary},  Employee Location: {emp.location} \n ");
             }
-
         }
 
         public void DeleteEmployee()
         {
             Console.Write("Enter Employee ID to Delete:  ");
             int nEmpId = Convert.ToInt32(Console.ReadLine());
-             
-            bool status = service.DeleteEmployee(nEmpId);
+            bool status = false;
+            
+            Thread deleteUserThread = new Thread(() =>
+            {
+                status = service.DeleteEmployee(nEmpId);
+            });
+            deleteUserThread.Start();
+            deleteUserThread.Join();
 
             if (status)
             {
@@ -137,7 +140,14 @@ namespace EmployeeManagementSystem.UI
             Console.Write("Enter new Location: ");
             string? strLocation = Console.ReadLine();
 
-            bool status = service.UpdateEmployeeInformation(nEmpId, strName, strDepartment, strEmail, nSalary, nAge, strLocation);
+            bool status = false;
+            
+            Thread updateUserThread = new Thread(() =>
+            {
+                status = service.UpdateEmployeeInformation(nEmpId, strName, strDepartment, strEmail, nSalary, nAge, strLocation);
+            });
+            updateUserThread.Start();
+            updateUserThread.Join();
 
 
             if (status)

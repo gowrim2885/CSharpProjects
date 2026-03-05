@@ -12,18 +12,22 @@ namespace StudentManagementSystem.Logic.service
     internal class StudentService
     {
         StudentData data = new StudentData();
-        public void AddNewStudent(int nId, string strName, int nAge, string strEmail, string strDepartment)
+        public void AddNewStudent(string strName, int nAge, string strEmail, string strDepartment)
         {
-            data.AddStudent(new StudentModel
-            {
-                StudentId = nId,
-                StudentName = strName,
-                Age = nAge,
-                Email = strEmail,
-                Department = strDepartment
+            data.AddStudent(strName, nAge, strEmail,strDepartment);
+        }
 
-            }
-            );
+        public void DisplayAllStudents()
+        {
+            data.DisplayStudent();
+        }
+        public void UpdateStudentInfo<T>(T newdata, string strColumnName, string strName)
+        {
+            data.UpdateStudentInformtion<T>(newdata, strColumnName, strName);
+        }
+        public void DeleteStudent(int nstudent_ID)
+        {
+            data.DeleteStudentInformation(nstudent_ID);
         }
     }
 }

@@ -1,26 +1,35 @@
-﻿using EmployeeManagementSystem.Data;
+﻿using System.Threading;
+using System.Collections;
+using EmployeeManagementSystem.Data;
 using EmployeeManagementSystem.logic.models;
+using System.Text.Json;
+using EmployeeManagementSystem.Log;
 
 namespace EmployeeManagementSystem.logic.services
 {
     public class EmployeeService
     {
         EmployeeData data = new EmployeeData();
-        List<EmployeeModel> Employees = new List<EmployeeModel>();
+       
         public void AddNewEmployee(int nEmpId, string strName, string strDepartment, string strEmail, decimal dSalary, int nAge, string strLocation)
         {
-
-            data.AddEmployee(new EmployeeModel
+            Thread addUserThread = new Thread(() =>
             {
-                id = nEmpId,
-                name = strName,
-                department = strDepartment,
-                email = strEmail,
-                salary = (int)dSalary,
-                age = nAge,
-                location = strLocation
+                data.AddEmployee(new EmployeeModel
+                {
+                    id = nEmpId,
+                    name = strName,
+                    department = strDepartment,
+                    email = strEmail,
+                    salary = (int)dSalary,
+                    age = nAge,
+                    location = strLocation
+                });
             });
 
+            addUserThread.Start();
+            addUserThread.Join();
+        
         }
 
         public List<EmployeeModel> DisplayAllEmployees()
@@ -37,10 +46,20 @@ namespace EmployeeManagementSystem.logic.services
 
             if (employeeToDelete != null)
             {
+                string olddata = JsonSerializer.Serialize(employeeToDelete);
                 employees.Remove(employeeToDelete);
                 IsDelete = true;
 
                 data.UpdateNewEmployeeList(employees);
+
+                EmployeeHistoryStorage.SaveHistory(new EmployeeHistory
+                {
+                    EmployeeId = nEmpId,
+                    Action = "DELETE",
+                    OldValue = olddata,
+                    NewValue = null
+                });
+
                 return IsDelete;
             }
             else
@@ -53,9 +72,13 @@ namespace EmployeeManagementSystem.logic.services
         {
             bool IsUpdate = false;
             List<EmployeeModel> employees = DisplayAllEmployees();
+
             var employeeToUpdate = employees.Find(emp => emp.id == nEmpId);
             if (employeeToUpdate != null)
             {
+                string oldData = JsonSerializer.Serialize(employeeToUpdate);
+
+                //string sample = employeeToUpdate;
                 employeeToUpdate.name = strName;
                 employeeToUpdate.department = strDepartment;
                 employeeToUpdate.email = strEmail;
@@ -63,7 +86,20 @@ namespace EmployeeManagementSystem.logic.services
                 employeeToUpdate.age = nAge;
                 employeeToUpdate.location = strLocation;
                 IsUpdate = true;
+                
+
+                string newData = JsonSerializer.Serialize(employeeToUpdate);
+
+                EmployeeHistoryStorage.SaveHistory(new EmployeeHistory
+                {
+                    EmployeeId = nEmpId,
+                    Action = "UPDATE",
+                    OldValue = oldData,
+                    NewValue = newData
+                });
+
                 data.UpdateNewEmployeeList(employees);
+
                 return IsUpdate;
             }
             else
