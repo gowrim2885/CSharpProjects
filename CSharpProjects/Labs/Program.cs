@@ -19,4 +19,6 @@ using System;
 
 //RefAndOut.RunMain();
 
-Wallet.Main();
+//Wallet.Main();
+
+StudentThread.Main();
