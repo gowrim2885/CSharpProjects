@@ -37,8 +37,8 @@ namespace Labs
             T1.Start();
             T2.Start();
 
-            //T1.Join();
-            //T2.Join();
+            T1.Join();
+            T2.Join();
 
             Console.WriteLine("Main Ended");
 
@@ -58,7 +58,7 @@ namespace Labs
         public static List<Account> CreateRandomAccount()
         {
             List<Account> accounts = [];
-            for (int i=0; i<100; i++)
+            for (int i=0; i<1000; i++)
             {
                 accounts.Add(new Account(i + 1, 10000));
             }
@@ -111,8 +111,8 @@ namespace Labs
         public void Transfer()
         {
             Console.WriteLine(Thread.CurrentThread.Name+"try to lock Account "+ _fromAccount.ID.ToString());
-            
-            lock (_fromAccount )
+
+            lock (_fromAccount)
             {
                 Console.WriteLine(Thread.CurrentThread.Name + "  locked the Account  " + _fromAccount.ID.ToString());
                 Console.WriteLine(Thread.CurrentThread.Name + " sleep 3 second");

@@ -21,4 +21,8 @@ using System;
 
 //Wallet.Main();
 
-StudentThread.Main();
+//StudentThread.Main();
+
+StudentAsychExecution.Main();
+
+//Accounts.Main();
