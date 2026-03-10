@@ -29,5 +29,15 @@ namespace StudentManagementSystem.Logic.service
         {
             data.DeleteStudentInformation(nstudent_ID);
         }
+
+        public int getCount()
+        {
+            return data.GetCount();
+        }
+
+        public void FilterStudent()
+        {
+            data.FilterdStudents();
+        }
     }
 }

@@ -119,5 +119,56 @@ namespace StudentManagementSystem.Data
             }
         }
 
+        public int GetCount()
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(CS))
+                {
+                    SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Students", con);
+                    con.Open();
+                    int total = (int)cmd.ExecuteScalar();
+                    return total;
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Error Occure: " + ex);
+                return 0;
+            }
+        }
+
+        public void FilterdStudents()
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(CS))
+                {
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM Students WHERE Age <= 20", con);
+                    con.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                int id = (int)reader["StudentID"];
+                                string Name = (string)reader["Name"];
+                                string Email = (string)reader["Email"];
+                                int Age = (int)reader["Age"];
+                                string Department = (string)reader["Department"];
+                                Console.WriteLine($"ID: {id}, Username: {Name}, Email: {Email}, Age: {Age}, Department: {Department}");
+                            }
+                                
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error Occure: " + ex);
+            }
+        }
+
     }
 }

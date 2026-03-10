@@ -23,7 +23,10 @@ namespace StudentManagementSystem.UI
                 Console.WriteLine("2. Display Students");
                 Console.WriteLine("3. Update Student Details");
                 Console.WriteLine("4.Delete Student Details");
+                Console.WriteLine("5.Get the total students count");
+                Console.WriteLine("6.Display the student with Age less than or equal to 20");
 
+                Console.WriteLine("Enter your option");
                 int n = Convert.ToInt32(Console.ReadLine());
 
                 switch (n)
@@ -40,9 +43,15 @@ namespace StudentManagementSystem.UI
                     case 4:
                         DeleteStudent();
                         break;
+                    case 5:
+                        GetTotalStudentCount();
+                        break;
+                    case 6:
+                        FilterStudentBasedOnAge();
+                        break;
                 }
 
-                Console.WriteLine("Do You want to continue(Y/N): ");
+                Console.WriteLine("\n Do You want to continue(Y/N): ");
                 char input = Convert.ToChar(Console.ReadLine());
                 if(input == 'Y' || input == 'y')
                 {
@@ -117,5 +126,18 @@ namespace StudentManagementSystem.UI
 
             Console.WriteLine("Student DELETED Successfully");
         }
+    
+        public void GetTotalStudentCount()
+        {
+            int result = service.getCount();
+            Console.Write("TOTAL STUDENT COUNT: "+ result);
+        }
+        public void FilterStudentBasedOnAge()
+        {
+            service.FilterStudent();
+        }
+
+
     }
+
 }
