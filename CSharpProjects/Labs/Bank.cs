@@ -33,7 +33,7 @@ namespace Labs
     }
     public class Transaction
     {
-        public static void Main()
+        public static void MainMethod()
         {
             Console.WriteLine("Enter the Amount: ");
             decimal dAmt = Convert.ToDecimal(Console.ReadLine());
