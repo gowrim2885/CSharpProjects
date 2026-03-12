@@ -12,6 +12,8 @@ namespace WebApplication1
         int Click_Count = 1;
         protected void Page_Load(object sender, EventArgs e)
         {
+            Response.Write(this.GetType().ToString());
+
             if (!IsPostBack)
             {
                 TextBox1.Text = "0";
