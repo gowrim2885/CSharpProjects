@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SessionState2.aspx.cs" Inherits="WebApplication1.SessionState" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SessionState2.aspx.cs" Inherits="WebApplication1.SessionState2" %>
 
 <!DOCTYPE html>
 

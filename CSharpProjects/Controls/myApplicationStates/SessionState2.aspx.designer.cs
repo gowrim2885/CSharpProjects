@@ -11,7 +11,7 @@ namespace WebApplication1
 {
 
 
-    public partial class SessionState
+    public partial class SessionState2
     {
 
         /// <summary>

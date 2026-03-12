@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace WebApplication1
 {
-    public partial class SessionState : System.Web.UI.Page
+    public partial class SessionState2 : System.Web.UI.Page
     {
         int Click_Count = 1;
         protected void Page_Load(object sender, EventArgs e)
