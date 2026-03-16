@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.Services.Description;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data;
 namespace ASPWebFormStudentManagementSystem.pages
 {
     public partial class DisplayPage : System.Web.UI.Page
@@ -17,55 +18,52 @@ namespace ASPWebFormStudentManagementSystem.pages
             DisplayStudentDetails();
         }
 
-        protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
+        protected void Delete_StudentInfo_Click(object sender, EventArgs e)
         {
-            GridView1.EditIndex = e.NewEditIndex;
-            DisplayStudentDetails();
-        }
+            LinkButton btn = (LinkButton)sender;
 
-        protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
-        {
-            int RollNumber = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Value);
-            string name = ((TextBox)GridView1.Rows[e.RowIndex].Cells[1].Controls[0]).Text;
-            string email = ((TextBox)GridView1.Rows[e.RowIndex].Cells[2].Controls[0]).Text;
-            string department = ((TextBox)GridView1.Rows[e.RowIndex].Cells[3].Controls[0]).Text;
+            GridViewRow row = (GridViewRow)btn.NamingContainer;
 
-            using (SqlConnection con = new SqlConnection(CS))
+            int RowIndex = row.RowIndex;
+
+            try
             {
-                SqlCommand cmd = new SqlCommand("UPDATE Students SET Name=@Name, Email=@Email, DepartmentID=@Dept WHERE RollNumber=@RollNumber", con);
-                cmd.Parameters.AddWithValue("@Name", name);
-                cmd.Parameters.AddWithValue("@Email", email);
-                cmd.Parameters.AddWithValue("@Dept", department);
-                cmd.Parameters.AddWithValue("@RollNumber", RollNumber);
-                con.Open();
-                cmd.ExecuteNonQuery();
+                using (SqlConnection con = new SqlConnection(CS))
+                {
+                    using (SqlCommand cmd = new SqlCommand("DeleteStudentInfo", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        //((TextBox)GridView1.Rows[e.RowIndex].Cells[1].Controls[0]).Text;
+
+                        int RollNumber = Convert.ToInt32(GridView1.DataKeys[RowIndex].Value);
+
+                        cmd.Parameters.AddWithValue("@RollNumber", RollNumber);
+
+                        con.Open();
+
+                        int changes = (int)cmd.ExecuteNonQuery();
+                        if(changes > 0)
+                        {
+                            Response.Write("Student " + RollNumber + " Deleted Successfully. ");
+                        }
+                        else
+                        {
+                            Response.Write("Student " + RollNumber + " Not Deleted. The data are not available on your database," +
+                                "Check Again.");
+                        }
+
+                        DisplayStudentDetails();
+                    }
+                }
             }
-
-            GridView1.EditIndex = -1;
-            DisplayStudentDetails();
-        }
-
-        protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
-        {
-            GridView1.EditIndex = -1;
-            DisplayStudentDetails();
-        }
-
-        protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            int RollNumber = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Value);
-
-            using (SqlConnection con = new SqlConnection(CS))
+            catch(Exception ex)
             {
-                SqlCommand cmd = new SqlCommand("DELETE FROM Students WHERE StudentID=@RollNumber", con);
-                cmd.Parameters.AddWithValue("@RollNumber", RollNumber);
-                con.Open();
-                cmd.ExecuteNonQuery();
+                Response.Write("Error: " + ex.Message);
+                DisplayStudentDetails();
             }
-
-            DisplayStudentDetails();
+            
         }
-
         protected void DisplayStudentDetails()
         {
             try
@@ -82,6 +80,53 @@ namespace ASPWebFormStudentManagementSystem.pages
                         GridView1.DataBind();
                         
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+                ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Error: " + message + "');", true);
+            }
+        }
+   
+        protected void TextChanged_searchdata()
+        {
+            string data = searchBox.Text;
+            using (SqlConnection con = new SqlConnection(CS))
+            {
+                SqlCommand cmd = new SqlCommand();
+            }
+        }
+
+        protected void getdata_Click(object sender, EventArgs e)
+        {
+            string search_data = "%" + searchBox.Text + "%";
+
+            if (string.IsNullOrEmpty(search_data))
+            {
+                DisplayStudentDetails();
+            }
+            else
+            {
+                FindStudentData(search_data);
+            }
+        }
+
+        protected void FindStudentData(string searchTerm)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(CS))
+                {
+                    SqlCommand cmd = new SqlCommand("SearchStudent", con);
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@SearchTerm", searchTerm);
+
+                    con.Open();
+                    GridView1.DataSource= cmd.ExecuteReader();
+                    GridView1.DataBind();
+
                 }
             }
             catch (Exception ex)

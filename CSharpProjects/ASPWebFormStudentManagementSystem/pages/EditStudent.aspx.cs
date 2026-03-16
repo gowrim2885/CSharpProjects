@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.EnterpriseServices;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace ASPWebFormStudentManagementSystem.pages
             if (!IsPostBack)
             {
                 int RollNumber = Convert.ToInt32(Request.QueryString["RollNumber"]);
+                DepartmentHelper.LoadDepartment(ddlDepartment, CS);
                 LoadStudent(RollNumber);
             }
 
@@ -33,19 +35,62 @@ namespace ASPWebFormStudentManagementSystem.pages
                 cmd.Parameters.AddWithValue("@RollNumber", RollNumber);
                 con.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
+
                 if (reader.Read())
                 {
                     inputRollNumber.Text = RollNumber.ToString();
                     inputName.Text = reader["Name"].ToString();
                     inputEmail.Text = reader["Email"].ToString();
-                    ddlDepartment.Text = reader["DepartmentID"].ToString();
+
+                    ddlDepartment.SelectedValue = reader["DepartmentID"].ToString();
                     rblGender.Text = reader["Gender"].ToString();
                     inputAddress.Text = reader["Address"].ToString();
                     inputAge.Text = reader["Age"].ToString();
-                    inputDateOfBirth.Text = reader["DateOfBirth"].ToString();
+                    
                     inputPhone.Text = reader["Phone"].ToString();
-                    inputAddmissionDate.Text = reader["AddmissionDate"].ToString();
+
+                    DateTime DOB = Convert.ToDateTime(reader["DateOfBirth"]);
+                    inputDateOfBirth.Text = DOB.ToString("yyyy-MM-dd");
+
+                    DateTime addmissionDate = Convert.ToDateTime(reader["AddmissionDate"]);
+                    inputAddmissionDate.Text = DOB.ToString("yyyy-MM-dd");
+     
                 }
+            }
+        }
+        protected void UpdateBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(CS))
+                {
+                    SqlCommand cmd = new SqlCommand("UpdateStudentInfo", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@RollNumber", inputRollNumber.Text);
+                    cmd.Parameters.AddWithValue("@Name", inputName.Text);
+                    cmd.Parameters.AddWithValue("@Email", inputEmail.Text);
+                    cmd.Parameters.AddWithValue("@DepartmentID", Convert.ToInt32(ddlDepartment.Text));
+                    cmd.Parameters.AddWithValue("@Address", inputAddress.Text);
+                    cmd.Parameters.AddWithValue("@Gender", rblGender.Text);
+                    cmd.Parameters.AddWithValue("@Age", Convert.ToInt32(inputAge.Text));
+                    cmd.Parameters.AddWithValue("@DateOfBirth", Convert.ToDateTime(inputDateOfBirth.Text));
+                    cmd.Parameters.AddWithValue("@Phone", inputPhone.Text);
+
+                    con.Open();
+                    int changes = (int)cmd.ExecuteNonQuery();
+
+                    if (changes > 0)
+                    {
+                        string script = "alert('Student Updated Successfully'); window.location='DisplayPage.aspx';";
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert", script, true);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                string message = ex.Message;
+                ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('An Error Occurred: " + message + "');", true);
 
             }
         }
