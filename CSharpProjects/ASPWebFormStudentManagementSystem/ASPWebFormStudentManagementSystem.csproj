@@ -122,7 +122,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="pages\AddStudent.aspx" />
-    <Content Include="pages\DeletePage.aspx" />
     <Content Include="pages\DisplayPage.aspx" />
     <Content Include="pages\EditStudent.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -181,6 +180,8 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Site.Master" />
+    <Content Include="style\AddStudentStyle.css" />
+    <Content Include="style\site.css" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -220,13 +221,7 @@
     <Compile Include="pages\AddStudent.aspx.designer.cs">
       <DependentUpon>AddStudent.aspx</DependentUpon>
     </Compile>
-    <Compile Include="pages\DeletePage.aspx.cs">
-      <DependentUpon>DeletePage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\DeletePage.aspx.designer.cs">
-      <DependentUpon>DeletePage.aspx</DependentUpon>
-    </Compile>
+    <Compile Include="pages\DepartmentHelper.cs" />
     <Compile Include="pages\DisplayPage.aspx.cs">
       <DependentUpon>DisplayPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
