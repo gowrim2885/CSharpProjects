@@ -42,6 +42,15 @@ namespace ASPWebFormStudentManagementSystem.pages
         protected global::System.Web.UI.WebControls.TextBox inputRollNumber;
 
         /// <summary>
+        /// rfvRollNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvRollNumber;
+
+        /// <summary>
         /// lbName control.
         /// </summary>
         /// <remarks>
@@ -58,6 +67,15 @@ namespace ASPWebFormStudentManagementSystem.pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox inputName;
+
+        /// <summary>
+        /// rfvName0 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvName0;
 
         /// <summary>
         /// lbEmail control.
@@ -78,6 +96,24 @@ namespace ASPWebFormStudentManagementSystem.pages
         protected global::System.Web.UI.WebControls.TextBox inputEmail;
 
         /// <summary>
+        /// rfvEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEmail;
+
+        /// <summary>
+        /// revEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revEmail;
+
+        /// <summary>
         /// lbDepartment control.
         /// </summary>
         /// <remarks>
@@ -94,6 +130,15 @@ namespace ASPWebFormStudentManagementSystem.pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlDepartment;
+
+        /// <summary>
+        /// rfvDepartment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvDepartment;
 
         /// <summary>
         /// lbAddress control.
@@ -132,6 +177,15 @@ namespace ASPWebFormStudentManagementSystem.pages
         protected global::System.Web.UI.WebControls.RadioButtonList rblGenderList;
 
         /// <summary>
+        /// rfvGender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvGender;
+
+        /// <summary>
         /// lbAge control.
         /// </summary>
         /// <remarks>
@@ -148,6 +202,24 @@ namespace ASPWebFormStudentManagementSystem.pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox inputAge;
+
+        /// <summary>
+        /// rvAge control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator rvAge;
+
+        /// <summary>
+        /// rfvAgeRequired control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAgeRequired;
 
         /// <summary>
         /// lbDateOfBirth control.
@@ -168,6 +240,15 @@ namespace ASPWebFormStudentManagementSystem.pages
         protected global::System.Web.UI.WebControls.TextBox inputDateOfBirth;
 
         /// <summary>
+        /// rfvDateOfBirth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvDateOfBirth;
+
+        /// <summary>
         /// lbPhone control.
         /// </summary>
         /// <remarks>
@@ -186,6 +267,24 @@ namespace ASPWebFormStudentManagementSystem.pages
         protected global::System.Web.UI.WebControls.TextBox inputPhone;
 
         /// <summary>
+        /// revPhone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revPhone;
+
+        /// <summary>
+        /// rfvPhone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPhone;
+
+        /// <summary>
         /// lbAdmissionDate control.
         /// </summary>
         /// <remarks>
@@ -202,6 +301,15 @@ namespace ASPWebFormStudentManagementSystem.pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox inputAddmissionDate;
+
+        /// <summary>
+        /// ValidationSummary1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary1;
 
         /// <summary>
         /// AddStudBtn control.

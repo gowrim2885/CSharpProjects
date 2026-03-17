@@ -42,6 +42,24 @@ namespace ASPWebFormStudentManagementSystem.pages
         protected global::System.Web.UI.WebControls.Button GetDataButton;
 
         /// <summary>
+        /// sortBtn1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button sortBtn1;
+
+        /// <summary>
+        /// sortBtn2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button sortBtn2;
+
+        /// <summary>
         /// GridView1 control.
         /// </summary>
         /// <remarks>

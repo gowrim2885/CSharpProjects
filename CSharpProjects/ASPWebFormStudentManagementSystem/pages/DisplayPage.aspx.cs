@@ -14,7 +14,7 @@ namespace ASPWebFormStudentManagementSystem.pages
     {
         string CS = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString; 
         protected void Page_Load(object sender, EventArgs e)
-        {
+       {
             DisplayStudentDetails();
         }
 
@@ -64,7 +64,7 @@ namespace ASPWebFormStudentManagementSystem.pages
             }
             
         }
-        protected void DisplayStudentDetails()
+        private void DisplayStudentDetails()
         {
             try
             {
@@ -88,17 +88,8 @@ namespace ASPWebFormStudentManagementSystem.pages
                 ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Error: " + message + "');", true);
             }
         }
-   
-        protected void TextChanged_searchdata()
-        {
-            string data = searchBox.Text;
-            using (SqlConnection con = new SqlConnection(CS))
-            {
-                SqlCommand cmd = new SqlCommand();
-            }
-        }
 
-        protected void getdata_Click(object sender, EventArgs e)
+        protected void Getdata_Click(object sender, EventArgs e)
         {
             string search_data = "%" + searchBox.Text + "%";
 
@@ -112,7 +103,7 @@ namespace ASPWebFormStudentManagementSystem.pages
             }
         }
 
-        protected void FindStudentData(string searchTerm)
+        private void FindStudentData(string searchTerm)
         {
             try
             {
@@ -133,6 +124,29 @@ namespace ASPWebFormStudentManagementSystem.pages
             {
                 string message = ex.Message;
                 ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Error: " + message + "');", true);
+            }
+        }
+
+        protected void SortAZStudentData_Click(object sender, EventArgs e)
+        {
+            using(SqlConnection con = new SqlConnection(CS))
+            {
+                SqlCommand cmd = new SqlCommand("SortStudentInfo", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                con.Open();
+                GridView1.DataSource = cmd.ExecuteReader();
+                GridView1.DataBind();
+            }
+        }
+        protected void SortZAStudentData_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection con = new SqlConnection(CS))
+            {
+                SqlCommand cmd = new SqlCommand("SortStudentInfoZA", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                con.Open();
+                GridView1.DataSource = cmd.ExecuteReader();
+                GridView1.DataBind();
             }
         }
     }

@@ -27,7 +27,7 @@ namespace ASPWebFormStudentManagementSystem.pages
 
         }
 
-        public void LoadStudent(int RollNumber)
+        private void LoadStudent(int RollNumber)
         {
             using (SqlConnection con = new SqlConnection(CS))
             {
@@ -93,6 +93,12 @@ namespace ASPWebFormStudentManagementSystem.pages
                 ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('An Error Occurred: " + message + "');", true);
 
             }
+        }
+
+        protected void CancelBtn_Click(object sender, EventArgs e)
+        {
+            string script = "window.location='DisplayPage.aspx';";
+            ClientScript.RegisterStartupScript(this.GetType(), "alert", script, true);
         }
     }
 }

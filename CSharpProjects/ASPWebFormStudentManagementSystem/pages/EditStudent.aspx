@@ -4,10 +4,11 @@
 
     <div class="form-Container">
 
-        <div cssclass="form-group">
-            <asp:Label ID="Label1" runat="server" Text="Update the Student Details"></asp:Label>
-            <br />
-            <br />
+        <div class="page-title">
+            <asp:Label ID="lbpagetitle" class="updatepgtitle" runat="server" Text="Update the Student Details"></asp:Label>
+        </div>
+
+        <div class="form-group">
             <asp:Label ID="lbRollNumber" runat="server" Text="Roll Number" AssociatedControlID="inputRollNumber"></asp:Label>
             <asp:TextBox ID="inputRollNumber" TextMode="Number" runat="server"></asp:TextBox>
         </div>
@@ -24,6 +25,7 @@
 
         <div class="form-group">
             <asp:Label ID="lbDepartment" runat="server" Text="Department" AssociatedControlID="ddlDepartment"></asp:Label>
+            <br />
             <asp:DropDownList ID="ddlDepartment" runat="server">
             </asp:DropDownList>
         </div>
@@ -31,7 +33,7 @@
 
         <div class="form-group">
             <asp:Label ID="lbAddress" runat="server" Text="Address" AssociatedControlID="inputAddress"></asp:Label>
-            <asp:TextBox ID="inputAddress" runat="server" TextMode="MultiLine" Rows="5" Columns="30"> </asp:TextBox>
+            <asp:TextBox ID="inputAddress" runat="server" TextMode="MultiLine" Rows="2" Columns="30"> </asp:TextBox>
         </div>
 
         <div class="form-group">
@@ -66,10 +68,9 @@
         </div>
 
         <div class="btn-set">
-            <asp:Button ID="Update_Btn" runat="server" OnClick="UpdateBtn_Click" Text="Update" Width="193px" />
-            <asp:Button ID="Cancel_Btn" runat="server" Text="Cancel" Width="239px" />
+            <asp:Button ID="Update_Btn" class="update-btn" runat="server" OnClick="UpdateBtn_Click" Text="Update" Width="193px" />
+            <asp:Button ID="Cancel_Btn" class="cancel-btn" runat="server" OnClick="CancelBtn_Click" Text="Cancel" Width="239px" />
         </div>
-
 
     </div>
 

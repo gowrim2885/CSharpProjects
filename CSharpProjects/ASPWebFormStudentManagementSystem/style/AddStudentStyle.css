@@ -1,16 +1,17 @@
 ﻿/*AddStudentPage.aspx*/
 
-*{
+* {
     padding: 0;
     box-sizing: border-box;
+    font-size:1.1rem;
 }
 
 .pageheading {
-    padding:5px;
-    margin-bottom:3px;
-    text-align:center;
-    font-size:larger;
-    font-weight:bold;
+    padding: 5px;
+    margin-bottom: 3px;
+    text-align: center;
+    font-size: larger;
+    font-weight: bold;
 }
 
 .form-Container {
@@ -22,13 +23,21 @@
 }
 
 .form-group {
-    width:100%;
-    margin-bottom: 8px;
+    width: 100%;
+    margin-bottom: 4px;
+/*    height: 107px;*/
 }
 
 label {
     font-weight: bold;
     color: #333;
+}
+.page-title {
+   text-align: center;
+}
+.updatepgtitle {
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
 input[type="text"],
@@ -48,6 +57,7 @@ textarea {
     border: 2px solid gray;
     border-radius: 4px;
 }
+
 #rblGenderList {
     display: flex;
 }
@@ -62,7 +72,7 @@ input:focus {
     box-shadow: 0 0 3px rgba(0,123,255, 0.5);
 }
 
-.submit-btn {
+.submit-btn,.update-btn {
     background-color: limegreen;
     padding: 5px;
     margin: 5px;
@@ -79,7 +89,7 @@ input:focus {
     width: 150px;
 }
 
-.submit-btn:hover {
+.submit-btn:hover,.update-btn:hover {
     background-color: darkgreen;
     color: white;
 }

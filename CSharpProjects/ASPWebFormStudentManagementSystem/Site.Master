@@ -14,72 +14,7 @@
 
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-
-    <style type="text/css">
-
-        *{
-            margin: 0;
-        }
-        .outer-div{
-            min-height:100vh;
-            display:flex;
-            flex-direction:column;
-        }
-        #header {
-            background-color:#043d66;
-            color: #FFFFFF;
-            font-size: 50px;
-            font-weight: bold; 
-            font-style: italic;
-            font-family: Candara; 
-            z-index: 1;
-            text-align:center;
-        }
-   
-        .screen{
-           flex:1;
-           display:flex;
-        }
-
-        .sidebar{
-            flex:0 0 20%;
-            background-color:#245f8a;
-        }
-        .Main{
-           flex:1;
-           background-color:white;
-           padding:30px;
-           width:100%;
-        }
-        .sidebarLinks{
-            display:flex;
-            flex-direction:column;
-        }
-
-        .Links {
-             color:white;
-             padding:10px;
-             text-align:center;
-             text-decoration:none;
-        }
-         .Links:hover {
-              color:white;
-              padding:10px;
-              font-size:20px;
-              text-align:center;
-              text-decoration:none;
-         }
-       
-        #footer{
-           text-align:center;
-           background-color:#043d66;
-           color:white;
-           padding:10px;
-        }
-
-       
-        
-    </style>
+    <link href="style/site.css" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
@@ -91,6 +26,7 @@
                 <div class="screen">
                     <div class="sidebar">
                         <nav class="sidebarLinks">
+                            <asp:HyperLink ID="DashboardLink" runat="server" class="Links" NavigateUrl="~/pages/Dashboard.aspx">Dashboard</asp:HyperLink>
                             <asp:HyperLink ID="AddLink" runat="server" class="Links" NavigateUrl="~/pages/AddStudent.aspx">Add Students</asp:HyperLink>
                             <asp:HyperLink ID="DisplayLink" runat="server" class="Links" NavigateUrl="~/pages/DisplayPage.aspx"> Students List </asp:HyperLink>
                         </nav>
