@@ -30,7 +30,6 @@ namespace ASPWebFormStudentManagementSystem.pages
 
                 txtStudentCount.Text = stdCount.ToString();
                 txtDepartmentCount.Text = DeptCount.ToString();
-
             }
         }
 
