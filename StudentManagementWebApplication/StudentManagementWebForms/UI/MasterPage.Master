@@ -1,0 +1,42 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.master.cs" Inherits="StudentManagementWebForms.UI.MasterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title><%: Page.Title %> - My ASP.NET Application</title>
+   
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="../style/site.css" rel="stylesheet" type="text/css" />
+    
+    <asp:ContentPlaceHolder ID="head" runat="server">
+
+    </asp:ContentPlaceHolder>
+
+</head>
+<body>
+    <form id="form1" runat="server" class="form-style">
+        <div class="outer-div">
+            <div id="header">
+                Student Management System</div>
+                <div class="screen">
+                    <div class="sidebar">
+                        <nav class="sidebarLinks">
+                            <asp:HyperLink ID="DashboardLink" runat="server" class="Links" NavigateUrl="~/UI/Dashboard.aspx">Dashboard</asp:HyperLink>
+                            <asp:HyperLink ID="AddLink" runat="server" class="Links" NavigateUrl="~/UI/AddStudent.aspx">Add Students</asp:HyperLink>
+                            <asp:HyperLink ID="DisplayLink" runat="server" class="Links" NavigateUrl="~/UI/DisplayPage.aspx"> Students List </asp:HyperLink>
+                        </nav>
+                    </div>
+
+                    <div class="Main">
+                        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+      
+                        </asp:ContentPlaceHolder>
+                    </div>
+                </div>
+            <div id="footer">Footer Content</div>
+        </div>
+    </form>
+</body>
+
+</html>
