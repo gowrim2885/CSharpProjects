@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace StudentManagementWebForms.Logic.Model
 {
     public class Students
     {
-
         public int RollNumber { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
@@ -18,5 +14,6 @@ namespace StudentManagementWebForms.Logic.Model
         public DateTime DateOfBirth { get; set; }
         public string Phone { get; set; }
         public DateTime AddmissionDate { get; set; }
+        public int VersionNumber { get; set; }
     }
 }

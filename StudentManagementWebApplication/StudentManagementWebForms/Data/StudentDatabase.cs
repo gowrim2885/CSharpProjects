@@ -10,21 +10,45 @@ namespace StudentManagementWebForms.Data
     public class StudentDatabase
     {
         private readonly string CS = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
-
         private SqlConnection GetConnection()
         {
             return new SqlConnection(CS);
         }
 
-        private int ExecuteNonQueryMethod(SqlCommand cmd)
+        private int ExecuteNonQueryMethod(SqlCommand cmd, SqlCommand AuditCommand)
         {
             using (SqlConnection con = GetConnection())
             {
-                cmd.Connection = con;
                 con.Open();
-                return cmd.ExecuteNonQuery();
+                using(SqlTransaction transaction = con.BeginTransaction())
+                {
+                    try
+                    {
+                        cmd.Connection = con;
+                        cmd.Transaction = transaction;
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        AuditCommand.Connection = con;
+                        AuditCommand.Transaction = transaction;
+                        AuditCommand.CommandType = CommandType.StoredProcedure;
+
+                        int changes = (int)cmd.ExecuteNonQuery();
+                        AuditCommand.ExecuteNonQuery();
+
+                        transaction.Commit();
+                        return changes;
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        return -1;
+                    }
+                }
+
             }
         }
+
+      
 
         private DataTable ExecuteDataTable(SqlCommand cmd)
         {
@@ -33,6 +57,8 @@ namespace StudentManagementWebForms.Data
             using (SqlConnection con = GetConnection())
             {
                 cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+
                 using (SqlDataAdapter adap = new SqlDataAdapter(cmd))
                 {
                     adap.Fill(dt);
@@ -42,8 +68,7 @@ namespace StudentManagementWebForms.Data
         }
         public int AddStudent(Students student)
         {
-            string InsertQuery = "INSERT INTO Students (RollNumber, Name, Email, DepartmentID, Address, Gender, Age, DateOfBirth, Phone) VALUES (@RollNumber, @Name, @Email, @Department, @Address, @Gender, @Age, @DOB, @Phone)";
-            SqlCommand cmd = new SqlCommand(InsertQuery);
+            SqlCommand cmd = new SqlCommand("AddStudentInfo");
 
             cmd.Parameters.AddWithValue("@RollNumber", student.RollNumber);
             cmd.Parameters.AddWithValue("@Name", student.Name);
@@ -54,8 +79,25 @@ namespace StudentManagementWebForms.Data
             cmd.Parameters.AddWithValue("@Age", student.Age);
             cmd.Parameters.AddWithValue("@DOB", student.DateOfBirth);
             cmd.Parameters.AddWithValue("@Phone", student.Phone);
+            cmd.Parameters.AddWithValue("@AddmissionDate", student.AddmissionDate);
 
-            return ExecuteNonQueryMethod(cmd);
+            SqlCommand Auditcommand = new SqlCommand("AddStudentAuditData");
+            Auditcommand.Parameters.AddWithValue("@RollNumber", student.RollNumber);
+            Auditcommand.Parameters.AddWithValue("@Action", "Insert");
+            Auditcommand.Parameters.AddWithValue("@VersionNumber",1);
+            Auditcommand.Parameters.AddWithValue("@Name", student.Name);
+            Auditcommand.Parameters.AddWithValue("@Email", student.Email);
+            Auditcommand.Parameters.AddWithValue("@Department", student.DepartmentID);
+            Auditcommand.Parameters.AddWithValue("@Address", student.Address);
+            Auditcommand.Parameters.AddWithValue("@Gender", student.Gender);
+            Auditcommand.Parameters.AddWithValue("@Age", student.Age);
+            Auditcommand.Parameters.AddWithValue("@DOB", student.DateOfBirth);
+            Auditcommand.Parameters.AddWithValue("@Phone", student.Phone);
+            Auditcommand.Parameters.AddWithValue("@AddmissionDate", student.AddmissionDate);
+            Auditcommand.Parameters.AddWithValue("@Action", "Insert");
+            Auditcommand.Parameters.AddWithValue("@VersionNumber",(student.VersionNumber + 1));
+
+            return ExecuteNonQueryMethod(cmd, Auditcommand);
 
         }
         public DataTable GetAllStudentDetail()
@@ -113,6 +155,11 @@ namespace StudentManagementWebForms.Data
             cmd.Parameters.AddWithValue("@Age", student.Age);
             cmd.Parameters.AddWithValue("@DateOfBirth", student.DateOfBirth);
             cmd.Parameters.AddWithValue("@Phone", student.Phone);
+            cmd.Parameters.AddWithValue("@AddmissionDate", student.AddmissionDate);
+
+
+            SqlCommand Auditcmd = new SqlCommand("UpdateStudentAuditData");
+            ExecuteAuditTableNonQuery(Auditcmd);
 
             return ExecuteNonQueryMethod(cmd);
         

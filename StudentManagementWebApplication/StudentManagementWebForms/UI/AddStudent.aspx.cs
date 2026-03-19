@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Configuration;
 using StudentManagementWebForms.Logic.Model;
 using StudentManagementWebForms.Logic.Service;
-
-using System.Web.UI.WebControls;
 
 namespace StudentManagementWebForms.UI
 {
@@ -31,8 +28,8 @@ namespace StudentManagementWebForms.UI
                 Gender = rblGenderList.Text,
                 Age = Convert.ToInt32(inputAge.Text),
                 DateOfBirth = Convert.ToDateTime(inputDateOfBirth.Text),
-                Phone = inputPhone.Text
-
+                Phone = inputPhone.Text,
+                AddmissionDate = Convert.ToDateTime(inputAddmissionDate.Text)
             };
 
             bool success = Service.AddStudents(student);
