@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADOPractice", "ADOPractice\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASPWebFormStudentManagementSystem", "ASPWebFormStudentManagementSystem\ASPWebFormStudentManagementSystem.csproj", "{6B194898-2B9B-4123-8F13-EA4FA760D2B1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadOnlyClass", "ReadOnlyClass\ReadOnlyClass.csproj", "{545BB2FC-1D38-41D0-965C-E1C0E5E2FC75}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{6B194898-2B9B-4123-8F13-EA4FA760D2B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B194898-2B9B-4123-8F13-EA4FA760D2B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B194898-2B9B-4123-8F13-EA4FA760D2B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{545BB2FC-1D38-41D0-965C-E1C0E5E2FC75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{545BB2FC-1D38-41D0-965C-E1C0E5E2FC75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{545BB2FC-1D38-41D0-965C-E1C0E5E2FC75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{545BB2FC-1D38-41D0-965C-E1C0E5E2FC75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

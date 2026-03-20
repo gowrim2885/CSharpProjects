@@ -3,6 +3,7 @@ using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Runtime.Remoting.Messaging;
 
 
 namespace StudentManagementWebForms.Data
@@ -15,7 +16,7 @@ namespace StudentManagementWebForms.Data
             return new SqlConnection(CS);
         }
 
-        private int ExecuteNonQueryMethod(SqlCommand cmd, SqlCommand AuditCommand)
+        private int ExecuteNonQueryMethod(SqlCommand cmd)
         {
             using (SqlConnection con = GetConnection())
             {
@@ -28,27 +29,18 @@ namespace StudentManagementWebForms.Data
                         cmd.Transaction = transaction;
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        AuditCommand.Connection = con;
-                        AuditCommand.Transaction = transaction;
-                        AuditCommand.CommandType = CommandType.StoredProcedure;
-
-                        int changes = (int)cmd.ExecuteNonQuery();
-                        AuditCommand.ExecuteNonQuery();
-
+                        int changes = cmd.ExecuteNonQuery();
                         transaction.Commit();
                         return changes;
                     }
-                    catch
+                    catch(SqlException ex)
                     {
                         transaction.Rollback();
-                        return -1;
+                        return ex.Number;
                     }
                 }
-
             }
         }
-
-      
 
         private DataTable ExecuteDataTable(SqlCommand cmd)
         {
@@ -81,23 +73,7 @@ namespace StudentManagementWebForms.Data
             cmd.Parameters.AddWithValue("@Phone", student.Phone);
             cmd.Parameters.AddWithValue("@AddmissionDate", student.AddmissionDate);
 
-            SqlCommand Auditcommand = new SqlCommand("AddStudentAuditData");
-            Auditcommand.Parameters.AddWithValue("@RollNumber", student.RollNumber);
-            Auditcommand.Parameters.AddWithValue("@Action", "Insert");
-            Auditcommand.Parameters.AddWithValue("@VersionNumber",1);
-            Auditcommand.Parameters.AddWithValue("@Name", student.Name);
-            Auditcommand.Parameters.AddWithValue("@Email", student.Email);
-            Auditcommand.Parameters.AddWithValue("@Department", student.DepartmentID);
-            Auditcommand.Parameters.AddWithValue("@Address", student.Address);
-            Auditcommand.Parameters.AddWithValue("@Gender", student.Gender);
-            Auditcommand.Parameters.AddWithValue("@Age", student.Age);
-            Auditcommand.Parameters.AddWithValue("@DOB", student.DateOfBirth);
-            Auditcommand.Parameters.AddWithValue("@Phone", student.Phone);
-            Auditcommand.Parameters.AddWithValue("@AddmissionDate", student.AddmissionDate);
-            Auditcommand.Parameters.AddWithValue("@Action", "Insert");
-            Auditcommand.Parameters.AddWithValue("@VersionNumber",(student.VersionNumber + 1));
-
-            return ExecuteNonQueryMethod(cmd, Auditcommand);
+            return ExecuteNonQueryMethod(cmd);
 
         }
         public DataTable GetAllStudentDetail()
@@ -111,30 +87,30 @@ namespace StudentManagementWebForms.Data
 
         public Students LoadUpdatePageDetail(int RollNumber)
         {
-            using (SqlConnection con =GetConnection())
+            using (SqlConnection con = GetConnection())
             {
-                SqlCommand cmd = new SqlCommand("SELECT RollNumber, Name, Email, DepartmentID, Gender, Address, Age, DateOfBirth, Phone, AddmissionDate FROM Students WHERE RollNumber=@Rollnumber", con);
+                SqlCommand cmd = new SqlCommand("Loadeditpage", con);
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@RollNumber", RollNumber);
                 con.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                SqlDataReader reader = cmd.ExecuteReader();
+               
+                if (reader.Read())
                 {
-                    if (reader.Read())
+                    return new Students
                     {
-                        return new Students
-                        {
-                            RollNumber = RollNumber,
-                            Name = reader["Name"].ToString(),
-                            Email = reader["Email"].ToString(),
-                            DepartmentID = Convert.ToInt32(reader["DepartmentID"]),
-                            Address = reader["Address"].ToString(),
-                            Gender = reader["Gender"].ToString(),
-                            Age = Convert.ToInt32(reader["Age"]),
-                            DateOfBirth = Convert.ToDateTime(reader["DateOfBirth"]),
-                            Phone = reader["Phone"].ToString(),
-                            AddmissionDate = Convert.ToDateTime(reader["AddmissionDate"])
-                        };
+                        RollNumber = RollNumber,
+                        Name = reader["Name"].ToString(),
+                        Email = reader["Email"].ToString(),
+                        DepartmentID = Convert.ToInt32(reader["DepartmentID"]),
+                        Address = reader["Address"].ToString(),
+                        Gender = reader["Gender"].ToString(),
+                        Age = Convert.ToInt32(reader["Age"]),
+                        DateOfBirth = Convert.ToDateTime(reader["DateOfBirth"]),
+                        Phone = reader["Phone"].ToString(),
+                        AddmissionDate = Convert.ToDateTime(reader["AddmissionDate"])
+                    };
 
-                    }
                 }
                 
             }
@@ -144,8 +120,7 @@ namespace StudentManagementWebForms.Data
         public int UpdateStudents(Students student)
         {
             SqlCommand cmd = new SqlCommand("UpdateStudentInfo");
-            cmd.CommandType = CommandType.StoredProcedure;
-
+           
             cmd.Parameters.AddWithValue("@RollNumber", student.RollNumber);
             cmd.Parameters.AddWithValue("@Name", student.Name);
             cmd.Parameters.AddWithValue("@Email", student.Email);
@@ -156,41 +131,36 @@ namespace StudentManagementWebForms.Data
             cmd.Parameters.AddWithValue("@DateOfBirth", student.DateOfBirth);
             cmd.Parameters.AddWithValue("@Phone", student.Phone);
             cmd.Parameters.AddWithValue("@AddmissionDate", student.AddmissionDate);
+            cmd.Parameters.AddWithValue("@VersionNumber", student.VersionNumber + 1);
 
-
-            SqlCommand Auditcmd = new SqlCommand("UpdateStudentAuditData");
-            ExecuteAuditTableNonQuery(Auditcmd);
-
-            return ExecuteNonQueryMethod(cmd);
-        
+            int changes  =  ExecuteNonQueryMethod(cmd);
+            return changes;
         }
 
         public int DeleteStudentData(int RollNumber)
         {
-            SqlCommand cmd = new SqlCommand("DeleteStudentInfo");
-            
-            cmd.CommandType = CommandType.StoredProcedure;
+                SqlCommand cmd = new SqlCommand("DeleteStudentInformation");
 
-            cmd.Parameters.AddWithValue("@RollNumber", RollNumber);
+                cmd.Parameters.AddWithValue("@RollNumber", RollNumber);
 
-            return ExecuteNonQueryMethod(cmd);
+                int changes = ExecuteNonQueryMethod(cmd);
+
+                return changes;
+           
         }
         public DataTable SearchStudentData(string search_data)
         {
             SqlCommand cmd = new SqlCommand("SearchStudent");
 
-            cmd.CommandType = CommandType.StoredProcedure;
-
             cmd.Parameters.AddWithValue("@SearchTerm", search_data);
 
             return ExecuteDataTable(cmd);
+        
         }
 
         public DataTable SortAToZ()
         {
             SqlCommand cmd = new SqlCommand("SortStudentInfo");
-
-            cmd.CommandType = CommandType.StoredProcedure;
 
             return ExecuteDataTable(cmd);
 
@@ -199,9 +169,8 @@ namespace StudentManagementWebForms.Data
         {
             SqlCommand cmd = new SqlCommand("SortStudentInfoZA");
 
-            cmd.CommandType = CommandType.StoredProcedure;
-
             return ExecuteDataTable(cmd);
+           
         }
     }
 }

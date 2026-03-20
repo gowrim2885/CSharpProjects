@@ -13,11 +13,30 @@ namespace StudentManagementWebForms.Logic.Service
     {
         StudentDatabase Sdb = new StudentDatabase();
         DepartmentDataBase Ddb = new DepartmentDataBase();
-        public bool AddStudents(Students student)
+        public string AddStudents(Students student)
         {
-            int changes = Sdb.AddStudent(student);
+            int result = Sdb.AddStudent(student);
 
-            return changes > 0;
+            if (result == 1)
+            {
+                string script = "alert('Student Added Successfully'); window.location='DisplayPage.aspx';";
+                return script;
+            }
+            else if (result == 2627) 
+            {
+                string script = "alert('Error: Roll Number already exists.');";
+                return script;
+            }
+            else if (result == 547) 
+            {
+                string script = "alert('Error: Invalid Department ID.');";
+                return script;
+            }
+            else
+            {
+                string script = "alert('Error: Could not add student.');";
+                return script;
+            }
         }
 
         public void LoadDepartment(DropDownList ddlDepartment)
@@ -33,11 +52,33 @@ namespace StudentManagementWebForms.Logic.Service
             return Sdb.LoadUpdatePageDetail(RollNumber);
         }
 
-        public bool UpdateStudentDetail(Students student) {
+        public string UpdateStudentDetail(Students student) {
 
-            int changes = Sdb.UpdateStudents(student);
+            int result = Sdb.UpdateStudents(student);
 
-            return changes > 0;
+            if (result == 1)
+            {
+                string script = "alert('Student updated successfully'); window.location='DisplayPage.aspx';";
+                return script;
+            }
+            else if (result == 2627)
+            {
+                string script = "alert('Error: Roll Number already exists.');";
+                return script;
+
+            }
+            else if (result == 547) 
+            {
+                string script = "alert('Error: Invalid Department ID.');";
+                return script;
+
+            }
+            else
+            {
+                string script = "alert('Error: Could not update student.');";
+                return script;
+
+            }
 
         }
         public int DeleteStudent(int RollNumber)

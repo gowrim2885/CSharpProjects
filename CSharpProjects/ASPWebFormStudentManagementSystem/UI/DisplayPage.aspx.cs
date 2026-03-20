@@ -14,7 +14,7 @@ namespace ASPWebFormStudentManagementSystem.pages
     {
         string CS = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString; 
         protected void Page_Load(object sender, EventArgs e)
-       {
+        {
             DisplayStudentDetails();
         }
 

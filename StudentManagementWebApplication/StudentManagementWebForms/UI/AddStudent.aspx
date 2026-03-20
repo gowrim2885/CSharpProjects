@@ -100,7 +100,7 @@
 		<div class="form-group">
 			<asp:Label ID="lbAdmissionDate" runat="server" Text="Admission Date" AssociatedControlID="inputAddmissionDate"></asp:Label>
 			 <br />
-			<asp:TextBox ID="inputAddmissionDate" runat="server" TextMode="Date"></asp:TextBox>
+			<asp:TextBox ID="inputAddmissionDate" runat="server" TextMode="Date" ReadOnly="true"></asp:TextBox>
 		</div>
 
 		<!-- Validation summary 

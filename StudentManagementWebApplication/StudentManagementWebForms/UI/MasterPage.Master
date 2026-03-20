@@ -13,9 +13,11 @@
 
     </asp:ContentPlaceHolder>
 
+
 </head>
 <body>
     <form id="form1" runat="server" class="form-style">
+        <div class="alert-section" id="alert-box"> </div>
         <div class="outer-div">
             <div id="header">
                 Student Management System</div>

@@ -13,6 +13,7 @@ namespace StudentManagementWebForms.UI
             if (!IsPostBack)
             {
                 Service.LoadDepartment(ddlDepartment);
+                inputAddmissionDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
             }
         }
 
@@ -32,18 +33,8 @@ namespace StudentManagementWebForms.UI
                 AddmissionDate = Convert.ToDateTime(inputAddmissionDate.Text)
             };
 
-            bool success = Service.AddStudents(student);
-            if (success)
-            {
-                string script = "alert('Student Added Successfully'); window.location='DisplayPage.aspx';";
-                ClientScript.RegisterStartupScript(this.GetType(), "alert", script, true);
-
-            }
-            else
-            {
-                string script = "alert('Error: Could not add student');";
-                ClientScript.RegisterStartupScript(this.GetType(), "alert", script, true);
-            }
+            string result = Service.AddStudents(student);
+            ClientScript.RegisterStartupScript(this.GetType(), "alert", result, true);
 
         }
 

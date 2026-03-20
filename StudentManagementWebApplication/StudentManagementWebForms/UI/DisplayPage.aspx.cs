@@ -15,7 +15,10 @@ namespace StudentManagementWebForms.UI
         StudentServices Service = new StudentServices();
         protected void Page_Load(object sender, EventArgs e)
         {
-            DisplayStudentDetails();
+            if (!IsPostBack)
+            {
+                DisplayStudentDetails();
+            }
         }
 
         private void DisplayStudentDetails()
@@ -32,7 +35,7 @@ namespace StudentManagementWebForms.UI
 
             if(dt != null && dt.Rows.Count >0)
             {
-                GridView1.DataSource = Service.SearchData(search_data);
+                GridView1.DataSource = dt;
                 GridView1.DataBind();
             }
             else
@@ -77,7 +80,7 @@ namespace StudentManagementWebForms.UI
                     "Check Again.");
             }
 
-            //DisplayStudentDetails();
+            DisplayStudentDetails();
         }
     }
 }

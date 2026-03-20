@@ -12,7 +12,7 @@
 
         <div class="form-group">
             <asp:Label ID="lbRollNumber" runat="server" Text="Roll Number" AssociatedControlID="inputRollNumber"></asp:Label>
-            <asp:TextBox ID="inputRollNumber" TextMode="Number" runat="server"></asp:TextBox>
+            <asp:TextBox ID="inputRollNumber" TextMode="Number" runat="server"  ReadOnly="true"></asp:TextBox>
         </div>
 
         <div class="form-group">
@@ -64,7 +64,7 @@
 
         <div class="form-group">
             <asp:Label ID="lbAdmissionDate" runat="server" Text="Admission Date" AssociatedControlID="inputAddmissionDate"></asp:Label>
-            <asp:TextBox ID="inputAddmissionDate" runat="server" TextMode="Date"></asp:TextBox>
+            <asp:TextBox ID="inputAddmissionDate" runat="server" TextMode="Date"  ReadOnly="true"></asp:TextBox>
             <br />
             <br />
         </div>

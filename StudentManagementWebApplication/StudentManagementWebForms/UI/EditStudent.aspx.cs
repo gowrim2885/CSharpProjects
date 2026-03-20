@@ -2,11 +2,8 @@
 using StudentManagementWebForms.Logic.Model;
 using StudentManagementWebForms.Logic.Service;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
 using System.Web;
+using System.Web.Optimization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -27,16 +24,16 @@ namespace StudentManagementWebForms.UI
 
         }
 
-        private void LoadStudent(int RollNumber)
+        private void LoadStudent(int RollNumber) 
         {
-            Students student =Service.EditStudentDetail(RollNumber);
+            Students student = Service.EditStudentDetail(RollNumber);
             if(student != null)
             {
                 inputRollNumber.Text = student.RollNumber.ToString();
                 inputName.Text = student.Name;
                 inputEmail.Text = student.Email;
                 ddlDepartment.SelectedValue = student.DepartmentID.ToString();
-                rblGender.Text = student.Gender;
+                rblGenderList.Text = student.Gender;
                 inputAddress.Text = student.Address;
                 inputAge.Text = student.Age.ToString();
                 inputPhone.Text = student.Phone.ToString();
@@ -56,21 +53,13 @@ namespace StudentManagementWebForms.UI
                 Gender = rblGenderList.Text,
                 Age = Convert.ToInt32(inputAge.Text),
                 DateOfBirth = Convert.ToDateTime(inputDateOfBirth.Text),
-                Phone = inputPhone.Text
+                Phone = inputPhone.Text,
+                AddmissionDate = Convert.ToDateTime(inputAddmissionDate.Text)
+
             };
 
-            bool success = Service.UpdateStudentDetail(student);
-            if (success)
-            {
-                string script = "alert('Student Updated Successfully'); window.location='DisplayPage.aspx';";
-                ClientScript.RegisterStartupScript(this.GetType(), "alert", script, true);
-
-            }
-            else
-            {
-                string script = "alert('Error: Could not able to Update student Information');";
-                ClientScript.RegisterStartupScript(this.GetType(), "alert", script, true);
-            }
+            string result  = Service.UpdateStudentDetail(student);
+            ClientScript.RegisterStartupScript(this.GetType(), "alert", result, true);
         }
 
         protected void CancelBtn_Click(object sender, EventArgs e)
