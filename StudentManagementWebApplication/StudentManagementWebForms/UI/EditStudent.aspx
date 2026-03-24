@@ -39,8 +39,8 @@
         </div>
 
         <div class="form-group">
-            <asp:Label ID="rblGenderList" runat="server" Text="Gender"></asp:Label>
-            <asp:RadioButtonList ID="rblGender" runat="server">
+            <asp:Label ID="rblGender" runat="server" Text="Gender"></asp:Label>
+            <asp:RadioButtonList ID="rblGenderList" runat="server">
                 <asp:ListItem Text="Male" Value="Male"></asp:ListItem>
                 <asp:ListItem Text="Female" Value="Female"></asp:ListItem>
             </asp:RadioButtonList>

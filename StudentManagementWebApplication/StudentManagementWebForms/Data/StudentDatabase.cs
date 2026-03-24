@@ -72,7 +72,7 @@ namespace StudentManagementWebForms.Data
             cmd.Parameters.AddWithValue("@DOB", student.DateOfBirth);
             cmd.Parameters.AddWithValue("@Phone", student.Phone);
             cmd.Parameters.AddWithValue("@AddmissionDate", student.AddmissionDate);
-
+            cmd.Parameters.AddWithValue("@VersionNumber", 1);
             return ExecuteNonQueryMethod(cmd);
 
         }
@@ -120,7 +120,7 @@ namespace StudentManagementWebForms.Data
         public int UpdateStudents(Students student)
         {
             SqlCommand cmd = new SqlCommand("UpdateStudentInfo");
-           
+            int newVersionNumber;
             cmd.Parameters.AddWithValue("@RollNumber", student.RollNumber);
             cmd.Parameters.AddWithValue("@Name", student.Name);
             cmd.Parameters.AddWithValue("@Email", student.Email);
@@ -131,7 +131,22 @@ namespace StudentManagementWebForms.Data
             cmd.Parameters.AddWithValue("@DateOfBirth", student.DateOfBirth);
             cmd.Parameters.AddWithValue("@Phone", student.Phone);
             cmd.Parameters.AddWithValue("@AddmissionDate", student.AddmissionDate);
-            cmd.Parameters.AddWithValue("@VersionNumber", student.VersionNumber + 1);
+
+            using(SqlConnection con = GetConnection())
+            {
+                con.Open();
+                SqlCommand cmd1 = new SqlCommand(
+            @"SELECT VersionNumber From Students  WHERE RollNumber = @RollNumber", con);
+                
+                cmd1.Parameters.AddWithValue("@RollNumber", student.RollNumber);
+                
+                newVersionNumber = (int) cmd1.ExecuteScalar();
+            
+            }
+
+
+            int VersionNumber = newVersionNumber+1;
+            cmd.Parameters.AddWithValue("@VersionNumber", VersionNumber);
 
             int changes  =  ExecuteNonQueryMethod(cmd);
             return changes;

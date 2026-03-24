@@ -33,7 +33,7 @@ namespace StudentManagementWebForms.UI
                 inputName.Text = student.Name;
                 inputEmail.Text = student.Email;
                 ddlDepartment.SelectedValue = student.DepartmentID.ToString();
-                rblGenderList.Text = student.Gender;
+                rblGenderList.SelectedValue = student.Gender;
                 inputAddress.Text = student.Address;
                 inputAge.Text = student.Age.ToString();
                 inputPhone.Text = student.Phone.ToString();
@@ -50,12 +50,12 @@ namespace StudentManagementWebForms.UI
                 Email = inputEmail.Text,
                 DepartmentID = Convert.ToInt32(ddlDepartment.Text),
                 Address = inputAddress.Text,
-                Gender = rblGenderList.Text,
+                Gender = rblGenderList.SelectedValue,
                 Age = Convert.ToInt32(inputAge.Text),
                 DateOfBirth = Convert.ToDateTime(inputDateOfBirth.Text),
                 Phone = inputPhone.Text,
-                AddmissionDate = Convert.ToDateTime(inputAddmissionDate.Text)
-
+                AddmissionDate = Convert.ToDateTime(inputAddmissionDate.Text),
+                
             };
 
             string result  = Service.UpdateStudentDetail(student);
