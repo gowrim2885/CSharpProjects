@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36623.8
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailAppwithChannels", "EmailAppwithChannels\EmailAppwithChannels.csproj", "{AA91A52F-9EF2-4BB1-B1AD-E66EC77F1BDD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OrderChannel", "OrderChannel", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orders", "Orders\Orders.csproj", "{81117453-8C03-4BFF-A9F1-B6FA307C8ACF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA91A52F-9EF2-4BB1-B1AD-E66EC77F1BDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA91A52F-9EF2-4BB1-B1AD-E66EC77F1BDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA91A52F-9EF2-4BB1-B1AD-E66EC77F1BDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA91A52F-9EF2-4BB1-B1AD-E66EC77F1BDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81117453-8C03-4BFF-A9F1-B6FA307C8ACF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81117453-8C03-4BFF-A9F1-B6FA307C8ACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81117453-8C03-4BFF-A9F1-B6FA307C8ACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81117453-8C03-4BFF-A9F1-B6FA307C8ACF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{81117453-8C03-4BFF-A9F1-B6FA307C8ACF} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3BCFA627-668A-4FFE-B5E9-67C8DD41A994}
+	EndGlobalSection
+EndGlobal
